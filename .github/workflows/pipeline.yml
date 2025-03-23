@@ -22,14 +22,9 @@ jobs:
         run: docker build -t devsecops-prototype .
 
       - name: SonarCloud scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=kagifret_devsecops-pipeline-prototype
-            -Dsonar.organization=kagifret
-            -Dsonar.sources=.
 
       - name: Snyk Scan
         uses: snyk/actions/docker@master
