@@ -42,12 +42,6 @@ jobs:
       issues: write
     steps:
       - name: OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.12.0
+        uses: zaproxy/action-baseline@v0.14.0
         with:
           target: "https://devsecops-pipeline-prototype.onrender.com/"
-
-      - name: Upload ZAP Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: zap_scan_report
-          path: ./zap_report
