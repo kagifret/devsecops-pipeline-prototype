@@ -1,11 +1,13 @@
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template_string, escape
 from flask_sqlalchemy import SQLAlchemy
-import hashlib
+from flask_talisman import Talisman
+import hashlib, os
 
 app = Flask(__name__)
+Talisman(app, content_security_policy=None) #mitigating security headers
 
-#exposed hardcoded secret key
-app.config['SECRET_KEY'] = 'hardcoded-secret-key'
+#mitigated secret key vulnerability (render.com env variable)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback-secret-key')
 
 #unsafe database setup example
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -31,7 +33,8 @@ def index():
 @app.route('/xss')
 def xss():
     user_input = request.args.get('input', '')
-    return render_template_string(f"<h1>Input was = {user_input}</h1>")
+    safe_input = escape(user_input) #mitigated xss vulnerability
+    return render_template_string("<h1>Input was = {{user_input}}</h1>",input=safe_input)
 
 #sql injection vulerability
 @app.route('/user', methods=['GET', 'POST'])
