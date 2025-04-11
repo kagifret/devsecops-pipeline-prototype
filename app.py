@@ -35,7 +35,7 @@ def index():
 def xss():
     user_input = request.args.get('input', '')
     safe_input = escape(user_input) #mitigated xss vulnerability
-    return render_template_string("<h1>Input was = {{user_input}}</h1>",input=safe_input)
+    return render_template_string("<h1>Input was = {{user_input}}</h1>",user_input=safe_input)
 
 #sql injection vulerability
 @app.route('/user', methods=['GET', 'POST'])
