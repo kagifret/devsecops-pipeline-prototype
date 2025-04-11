@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template_string, escape
+from flask import Flask, request, render_template_string
+from markupsafe import escape
 from flask_sqlalchemy import SQLAlchemy
 from flask_talisman import Talisman
 import hashlib, os
