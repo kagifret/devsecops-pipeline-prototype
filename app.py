@@ -5,10 +5,18 @@ from flask_talisman import Talisman
 import hashlib, os
 
 app = Flask(__name__)
-Talisman(app, content_security_policy=None) #mitigating security headers
+
+#mitigating security headers
+csp = {
+    'default-src': '\'self\''
+}
+talisman = Talisman(app, content_security_policy=csp, cross_origin_resource_policy='same-origin')
 
 #mitigated secret key vulnerability (render.com env variable)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback-secret-key')
+secret_key = os.getenv('SECRET_KEY')
+if secret_key is None: #checking for env variable
+    raise ValueError("SECRET_KEY env var not found")
+app.config['SECRET_KEY'] = secret_key #setting secret key from env variable, compliant with sonarqube
 
 #unsafe database setup example
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
