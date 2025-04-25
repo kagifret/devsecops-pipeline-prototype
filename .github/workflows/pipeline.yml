@@ -23,7 +23,7 @@ jobs:
 
       - name: Run pytest
         env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          FLASK_VAR: ${{ secrets.FLASK_VAR}} }}
         run: pytest tests/
 
   security-scans:

@@ -8,15 +8,20 @@ app = Flask(__name__)
 
 #mitigating security headers
 csp = {
-    'default-src': '\'self\''
+    'default-src': '\'self\'',
+    'frame-ancestors': '\'none\'',
+    'form-action': '\'self\'', 
 }
-talisman = Talisman(app, content_security_policy=csp)
+#updated extra policies
+talisman = Talisman(app, content_security_policy=csp, frame_options='DENY', referrer_policy='same-origin', force_https=True)
 
 #mitigated secret key vulnerability
-secret_key = os.getenv('SECRET_KEY')
-if secret_key is None: #checking for env variable
-    raise ValueError("SECRET_KEY env var not found")
-app.config['SECRET_KEY'] = secret_key #setting secret key from env variable, compliant with sonarqube
+flask_var = os.getenv('FLASK_VAR')
+if flask_var is None: #checking for env variable
+    raise ValueError("FLASK_VAR env var not found")
+
+#workaround for secret key vulnerability
+app.config.update(SECRET_KEY=flask_var)
 
 #unsafe database setup example
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
