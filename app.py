@@ -12,7 +12,7 @@ csp = {
 }
 talisman = Talisman(app, content_security_policy=csp)
 
-#mitigated secret key vulnerability (render.com env variable)
+#mitigated secret key vulnerability
 secret_key = os.getenv('SECRET_KEY')
 if secret_key is None: #checking for env variable
     raise ValueError("SECRET_KEY env var not found")

@@ -22,6 +22,8 @@ jobs:
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
       - name: Run pytest
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: pytest tests/
 
   security-scans:
