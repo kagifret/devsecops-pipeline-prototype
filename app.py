@@ -10,7 +10,7 @@ app = Flask(__name__)
 csp = {
     'default-src': '\'self\''
 }
-talisman = Talisman(app, content_security_policy=csp, cross_origin_resource_policy='same-origin')
+talisman = Talisman(app, content_security_policy=csp)
 
 #mitigated secret key vulnerability (render.com env variable)
 secret_key = os.getenv('SECRET_KEY')
