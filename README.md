@@ -102,26 +102,26 @@ The pipeline requires API tokens and secrets in order to use SonarCloud and Snyk
 2. Navigate to `Settings` => `Secrets and variables`  => `Actions`.
 3. Locate `Repository secrets` and press `New repository secret` for each of the following:
 
-    *   **Secret Name:** `SONAR_TOKEN`
-        *   **Value:** SonarCloud API Token
-        *   **How to get:**
+   **Secret Name:** `SONAR_TOKEN`
+     **Value:** SonarCloud API Token
+          * **How to get:**
             1. Log in to [SonarCloud.io](https://sonarcloud.io/)
             2. Click your profile picture on top right
             3. Go to *My Account* > *Security* tab
             4. Under "Generate Tokens", enter a name for it and click `Generate`
             5. Copy the generated token value (it wont be shown again) and paste it as the secret's value in GitHub
 
-    *   **Secret Name:** `SNYK_TOKEN`
-        *   **Value:** Snyk API Token.
-        *   **How to get:**
+    **Secret Name:** `SNYK_TOKEN`
+      **Value:** Snyk API Token.
+         * **How to get:**
             1. Log in to [app.snyk.io](https://app.snyk.io/)
             2. Navigate to *Account Settings* on the bottom left
             3. Locate the *General* tab and find *Auth Token* section
             4. Generate an API key
-            6. Copy the API token value and paste it as the secret's value in GitHub.
+            5. Copy the API token value and paste it as the secret's value in GitHub.
 
-    *   **Secret Name:** `FLASK_VAR`
-        *   **Value:** Any (as you see fit)
+     **Secret Name:** `FLASK_VAR`
+       **Value:** Any (as you see fit)
 
 
 ### 3. Deploy the application to Render.com
