@@ -104,7 +104,7 @@ The pipeline requires API tokens and secrets in order to use SonarCloud and Snyk
 
    **Secret Name:** `SONAR_TOKEN`
      **Value:** SonarCloud API Token
-          * **How to get:**
+          - **How to get:**
             1. Log in to [SonarCloud.io](https://sonarcloud.io/)
             2. Click your profile picture on top right
             3. Go to *My Account* > *Security* tab
@@ -113,7 +113,7 @@ The pipeline requires API tokens and secrets in order to use SonarCloud and Snyk
 
     **Secret Name:** `SNYK_TOKEN`
       **Value:** Snyk API Token.
-         * **How to get:**
+         - **How to get:**
             1. Log in to [app.snyk.io](https://app.snyk.io/)
             2. Navigate to *Account Settings* on the bottom left
             3. Locate the *General* tab and find *Auth Token* section
