@@ -4,33 +4,35 @@
 The source code and pipeline configuration for my DevSecOps pipeline prototype can be located in this repository. It is part of my Bachelor thesis as a prototype to collect the findings in terms of effectivess in finding security vulnerabilities in early development stages via iterative testing and deployment. It features a simple Flask web application with intentional vulnerabilities. This prototype integrates security tools like SonarCloud, Snyk and OWASP ZAP. Additionally Pytest is used for unit testing. The pipeline is hosted on GitHub Actions as a CI/CD workflow. The web app is deployed to the "Render.com" environtment for accessibility. 
 
 ## Structure
-- `/`: Flask source code (`app.py`), dependencies (`requirements.txt`), and Docker configuration (`Dockerfile`)
-- `/tests`:  Pytest unit tests (`test_app.py`)
-- `.github/workflows`: GitHub Actions pipeline configuration and (`pipeline.yaml`) defines the CI/CD stages
+`/`: Flask source code (`app.py`), dependencies (`requirements.txt`), and Docker configuration (`Dockerfile`)
+`/tests`:  Pytest unit tests (`test_app.py`)
+`.github/workflows`: GitHub Actions pipeline configuration and (`pipeline.yaml`) defines the CI/CD stages
 
 ## Features
-- **Flask Web Application:** Simple Python web app with intentional vulnerabilities for testing purposes
-- **Automated CI/CD Pipeline:** Uses GitHub Actions for build, test and security scanning
-- **Unit Testing:** Uses Pytest to ensure basic application functionality
-- **Static Application Security Testing (SAST):** Used SonarCloud for analyzing code quality and security issues in the source code
-- **Software Composition Analysis (SCA):** Used Snyk to detect vulnerabilities in application dependencies and the Docker packages
-- **Dynamic Application Security Testing (DAST):** Used OWASP ZAP's baseline scan to detect runtime vulnerabilities
-- **Security Headers:** Basic implementation using Flask-Talisman
-- **Containerization:** Application was packaged using Docker
-- **Cloud Deployment:** Hosted on Render.com's free tier
+**Flask Web Application:** Simple Python web app with intentional vulnerabilities for testing purposes
+**Automated CI/CD Pipeline:** Uses GitHub Actions for build, test and security scanning
+**Unit Testing:** Uses Pytest to ensure basic application functionality
+**Static Application Security Testing (SAST):** Used SonarCloud for analyzing code quality and security issues in the source code
+**Software Composition Analysis (SCA):** Used Snyk to detect vulnerabilities in application dependencies and the Docker packages
+**Dynamic Application Security Testing (DAST):** Used OWASP ZAP's baseline scan to detect runtime vulnerabilities
+**Security Headers:** Basic implementation using Flask-Talisman
+**Containerization:** Application was packaged using Docker
+**Cloud Deployment:** Hosted on Render.com's free tier
 
 ## Setup and installation instructions
 
 ### Prerequisites
 Before you begin, make sure you have the following installed:
-- **Git:** for cloning the repository
-- **Python:** version 3.12 or later
-- **pip:** Python package installer
-- **Docker:** for building and running the container locally
-- **GitHub Account:** for hosting the repository and using GitHub Actions
-- **Render.com Account:** A free tier account is sufficient for deployment
-- **SonarCloud Account:** is required for SAST scans (free for public repositories)
-- **Snyk Account:** is required for SCA scans (free tier available)
+**Git:** for cloning the repository
+**Python:** version 3.12 or later
+**pip:** Python package installer
+**Docker:** for building and running the container locally
+**GitHub Account:** for hosting the repository and using GitHub Actions
+**Render.com Account:** A free tier account is sufficient for deployment
+**SonarCloud Account:** is required for SAST scans (free for public repositories)
+**Snyk Account:** is required for SCA scans (free tier available)
+
+
 
 ### 1. Clone the repository
 Clone the repository to your local machine:
@@ -40,6 +42,59 @@ cd devsecops-pipeline-prototype
 ```
 
 or use VS Code internal functionality of Git cloning with the URL of this repository
+
+- **Python Virtual Environment (for local development)**
+To ensure the activation of the virtual environment, create one after cloning the repository by using the following commands:
+```bash
+#first navigate to the project's directory (after previous step)
+python -m venv venv
+
+#run .\venv\Scripts\activate if Windows 
+#or source venv/bin/activate on MacOS/Linux 
+
+#run after activating the virtual environment to install require python libraries
+pip install -r requirements.txt
+
+#test the flask app
+flask run --host=0.0.0.0
+```
+#### In case if the Flask application does not run
+Try this method by manually inserting a "FLASK_VAR" environment variable
+```bash
+set FLASK_VAR= value #for Windows, replace "value" with your desired value
+$env:FLASK_VAR= 'value' #for Windows PowerShell
+export FLASK_VAR='value' #for MacOS/Linux
+
+#try running again
+flask run --host=0.0.0.0
+```
+### 1.1 Bulding and running a local Docker instance
+Optional step if you need to run a local Docker instance of this project, since the primary goal is to run the web application via CI/CD pipeline and the Docker instance being deployed on Render.com.
+Before proceeding, make sure to have a Docker Desktop and Docker Engine applications running on your local machine.
+
+1. Go to your project's root folder (devsecops-pipeline-prototype) directory. Check if it contains a Dockerfile.
+2. Build the Docker image:
+   ```bash
+   docker build -t devsecops-prototype .
+   ```
+
+  * "-t name" tags the Docker image with the name "name"
+  * "." indicates that the Dockerfile is in the "current" directory
+  
+3. Running the Docker container
+   ```bash
+   docker run --rm -p 5000:5000 -e FLASK_VAR='value' devsecops-prototype
+   ```
+
+   * "--rm" automatically removes the container after running
+   * "-p 5000:5000" maps the port from your machine to to the container's port
+   * "-e FLASK_VAR='value' " sets the required environment variable (replace it with any value)
+   * "devsecops-ptototype" specifies which image to run to Docker
+  
+4. Accessing the web application
+    Open your browser, navigate to "http://localhost:5000". You should see the Flask web application running successfully.
+5. Stopping the container
+   Press "Ctrl + C" in the terminal window, in which the "docker run" command was executed. The container should stop running immediately.
 
 ### 2. Configuring secrets for GitHub Actions
 The pipeline requires API tokens and secrets in order to use SonarCloud and Snyk scanning tools. They need to be configured in your GitHub repository settings:
