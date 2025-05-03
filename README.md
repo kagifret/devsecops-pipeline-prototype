@@ -4,33 +4,33 @@
 The source code and pipeline configuration for my DevSecOps pipeline prototype can be located in this repository. It is part of my Bachelor thesis as a prototype to collect the findings in terms of effectivess in finding security vulnerabilities in early development stages via iterative testing and deployment. It features a simple Flask web application with intentional vulnerabilities. This prototype integrates security tools like SonarCloud, Snyk and OWASP ZAP. Additionally Pytest is used for unit testing. The pipeline is hosted on GitHub Actions as a CI/CD workflow. The web app is deployed to the "Render.com" environtment for accessibility. 
 
 ## Structure
-`/`: Flask source code (`app.py`), dependencies (`requirements.txt`), and Docker configuration (`Dockerfile`)
-`/tests`:  Pytest unit tests (`test_app.py`)
-`.github/workflows`: GitHub Actions pipeline configuration and (`pipeline.yaml`) defines the CI/CD stages
+- `/`: Flask source code (`app.py`), dependencies (`requirements.txt`), and Docker configuration (`Dockerfile`)
+- `/tests`:  Pytest unit tests (`test_app.py`)
+- `.github/workflows`: GitHub Actions pipeline configuration and (`pipeline.yaml`) defines the CI/CD stages
 
 ## Features
-**Flask Web Application:** Simple Python web app with intentional vulnerabilities for testing purposes
-**Automated CI/CD Pipeline:** Uses GitHub Actions for build, test and security scanning
-**Unit Testing:** Uses Pytest to ensure basic application functionality
-**Static Application Security Testing (SAST):** Used SonarCloud for analyzing code quality and security issues in the source code
-**Software Composition Analysis (SCA):** Used Snyk to detect vulnerabilities in application dependencies and the Docker packages
-**Dynamic Application Security Testing (DAST):** Used OWASP ZAP's baseline scan to detect runtime vulnerabilities
-**Security Headers:** Basic implementation using Flask-Talisman
-**Containerization:** Application was packaged using Docker
-**Cloud Deployment:** Hosted on Render.com's free tier
+- **Flask Web Application:** Simple Python web app with intentional vulnerabilities for testing purposes
+- **Automated CI/CD Pipeline:** Uses GitHub Actions for build, test and security scanning
+- **Unit Testing:** Uses Pytest to ensure basic application functionality
+- **Static Application Security Testing (SAST):** Used SonarCloud for analyzing code quality and security issues in the source code
+- **Software Composition Analysis (SCA):** Used Snyk to detect vulnerabilities in application dependencies and the Docker packages
+- **Dynamic Application Security Testing (DAST):** Used OWASP ZAP's baseline scan to detect runtime vulnerabilities
+- **Security Headers:** Basic implementation using Flask-Talisman
+- **Containerization:** Application was packaged using Docker
+- **Cloud Deployment:** Hosted on Render.com's free tier
 
 ## Setup and installation instructions
 
 ### Prerequisites
 Before you begin, make sure you have the following installed:
-**Git:** for cloning the repository
-**Python:** version 3.12 or later
-**pip:** Python package installer
-**Docker:** for building and running the container locally
-**GitHub Account:** for hosting the repository and using GitHub Actions
-**Render.com Account:** A free tier account is sufficient for deployment
-**SonarCloud Account:** is required for SAST scans (free for public repositories)
-**Snyk Account:** is required for SCA scans (free tier available)
+- **Git:** for cloning the repository
+- **Python:** version 3.12 or later
+- **pip:** Python package installer
+- **Docker:** for building and running the container locally
+- **GitHub Account:** for hosting the repository and using GitHub Actions
+- **Render.com Account:** A free tier account is sufficient for deployment
+- **SonarCloud Account:** is required for SAST scans (free for public repositories)
+- **Snyk Account:** is required for SCA scans (free tier available)
 
 
 
@@ -58,7 +58,7 @@ pip install -r requirements.txt
 #test the flask app
 flask run --host=0.0.0.0
 ```
-#### In case if the Flask application does not run
+**In case if the Flask application does not run**
 Try this method by manually inserting a "FLASK_VAR" environment variable
 ```bash
 set FLASK_VAR= value #for Windows, replace "value" with your desired value
@@ -102,26 +102,26 @@ The pipeline requires API tokens and secrets in order to use SonarCloud and Snyk
 2. Navigate to `Settings` => `Secrets and variables`  => `Actions`.
 3. Locate `Repository secrets` and press `New repository secret` for each of the following:
 
-   **Secret Name:** `SONAR_TOKEN`
-     **Value:** SonarCloud API Token
-          - **How to get:**
+  * **Secret Name:** `SONAR_TOKEN`
+    * **Value:** SonarCloud API Token
+          * **How to get:**
             1. Log in to [SonarCloud.io](https://sonarcloud.io/)
             2. Click your profile picture on top right
             3. Go to *My Account* > *Security* tab
             4. Under "Generate Tokens", enter a name for it and click `Generate`
             5. Copy the generated token value (it wont be shown again) and paste it as the secret's value in GitHub
 
-    **Secret Name:** `SNYK_TOKEN`
-      **Value:** Snyk API Token.
-         - **How to get:**
+  *  **Secret Name:** `SNYK_TOKEN`
+    *  **Value:** Snyk API Token.
+         * **How to get:**
             1. Log in to [app.snyk.io](https://app.snyk.io/)
             2. Navigate to *Account Settings* on the bottom left
             3. Locate the *General* tab and find *Auth Token* section
             4. Generate an API key
             5. Copy the API token value and paste it as the secret's value in GitHub.
 
-     **Secret Name:** `FLASK_VAR`
-       **Value:** Any (as you see fit)
+  *   **Secret Name:** `FLASK_VAR`
+      * **Value:** Any (as you see fit)
 
 
 ### 3. Deploy the application to Render.com
