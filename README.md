@@ -107,7 +107,7 @@ The pipeline requires API tokens and secrets in order to use SonarCloud and Snyk
         *   **How to get:**
             1. Log in to [SonarCloud.io](https://sonarcloud.io/)
             2. Click your profile picture on top right
-            3. Go to *My Account* > *Security* tab
+            3. Go to My Account => Security tab
             4. Under "Generate Tokens", enter a name for it and click `Generate`
             5. Copy the generated token value (it wont be shown again) and paste it as the secret's value in GitHub
 
@@ -115,10 +115,10 @@ The pipeline requires API tokens and secrets in order to use SonarCloud and Snyk
         *   **Value:** Snyk API Token.
         *   **How to get:**
             1. Log in to [app.snyk.io](https://app.snyk.io/)
-            2. Navigate to *Account Settings* on the bottom left
-            3. Locate the *General* tab and find *Auth Token* section
+            2. Navigate to Account Settings on the bottom left
+            3. Locate the General tab and find Auth Token section
             4. Generate an API key
-            6. Copy the API token value and paste it as the secret's value in GitHub.
+            5. Copy the API token value and paste it as the secret's value in GitHub
 
     *   **Secret Name:** `FLASK_VAR`
         *   **Value:** Any (as you see fit)
@@ -167,6 +167,24 @@ Example:
    
 5. **Save** the changes to `pipeline.yaml`
 6. **Commit and push** this update to your GitHub repository
+
+### 5. SonarCloud configuration
+SonarCloud requires additional configuration before running the pipeline.
+1. Log in to [SonarCloud.io](https://sonarcloud.io/)
+2. If not previously done before, import the repository as a project from GitHub
+3. Navigate to the project dashboard
+4. Press "Information" button on the left panel
+5. Locate and save "Project Key" and "Organization Key" values
+6. Navigate to the root of the repository directory and open the file `sonar-project.properties`
+7. Locate the first line starting from `sonar.projectKey"
+8. Replace the existing project key with your Project Key
+9. Replace the existing organization key with your Organization Key
+10. Save the file
+
+```yaml
+sonar.projectKey= your project key here
+sonar.organization= your organization key here
+```
    
 
 ## Running the pipeline
