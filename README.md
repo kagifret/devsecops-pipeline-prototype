@@ -175,11 +175,12 @@ SonarCloud requires additional configuration before running the pipeline.
 3. Navigate to the project dashboard
 4. Press "Information" button on the left panel
 5. Locate and save "Project Key" and "Organization Key" values
-6. Navigate to the root of the repository directory and open the file `sonar-project.properties`
-7. Locate the first line starting from `sonar.projectKey"
-8. Replace the existing project key with your Project Key
-9. Replace the existing organization key with your Organization Key
-10. Save the file
+6. Navigate to the root of the repository directory and create a file `sonar-project.properties`
+7. Type the first line `sonar.projectKey=` with your Project key followed
+8. Type the second line `sonar.organization=` with your Organization key followed
+9. Save the file
+
+An example file of `sonar-project.properties`
 
 ```yaml
 sonar.projectKey= your project key here
